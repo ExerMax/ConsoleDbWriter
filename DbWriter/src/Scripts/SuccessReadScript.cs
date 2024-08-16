@@ -8,10 +8,12 @@ namespace DbWriter.src.Scripts
         {
             Console.WriteLine("Запись данных завершена");
             Console.WriteLine($"Заказов прочитано успешно:{context.storage.SuccessfulReaded}");
-            Console.WriteLine($"Заказов записано успешно:{context.storage.SuccessfulReaded}");
-            Console.WriteLine("Для просмотра детализации записи введите - d");
+            Console.WriteLine($"Заказов записано успешно:{context.storage.SuccessfulWrited}");
+            Console.WriteLine("Для просмотра детализации чтения введите - rd");
+            Console.WriteLine("Для просмотра детализации записи введите - wd");
             string str = Console.ReadLine();
-            if (str == "d") context.Script = new DetailingScreenScript();
+            if (str == "rd") context.Script = new ReadingDetailScript();
+            else if (str == "wd") context.Script = new WritingDetailScript();
             else context.Script = new FileRequestScript();
         }
     }

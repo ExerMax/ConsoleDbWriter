@@ -7,6 +7,7 @@
         public double Sum { get; set; }
         public XUser User { get; set; }
         public List<XProduct> Products { get; set; } = new List<XProduct>();
+        public bool Writed { get; set; } = false;
 
         public override string ToString()
         {
