@@ -9,9 +9,7 @@ namespace DbWriter.src.Services
     {
         public IEnumerable<XOrder> Read(string pathFile)
         {
-            XElement root = XElement.Load(pathFile);
-
-            var xorders = root.Elements("order").Select(o => new XOrder
+            return XElement.Load(pathFile).Elements("order").Select(o => new XOrder
             {
                 No = Int32.Parse(o.Element("no").Value),
                 RegDate = DateTime.Parse(o.Element("reg_date").Value),
@@ -28,8 +26,6 @@ namespace DbWriter.src.Services
                     Price = Decimal.Parse(p.Element("price").Value, CultureInfo.InvariantCulture)
                 }).ToList()
             }).ToList();
-
-            return xorders;
         }
     }
 }
