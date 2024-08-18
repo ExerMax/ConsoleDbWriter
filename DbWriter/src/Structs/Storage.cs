@@ -10,5 +10,13 @@ namespace DbWriter.src.Structs
         public IEnumerable<XOrder> orders;
 
         public Storage() { }
+
+        public void Refresh()
+        {
+            orders = new List<XOrder>();
+            SuccessfulWrited = 0;
+            SuccessfulReaded = 0;
+            FilePath = "";
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace DbWriter.DbAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public required string Name { get; set; }
-        public required double Price { get; set; }
+        public required decimal Price { get; set; }
         public required int Quantity { get; set; } = 0;
         public string? Description { get; set; }
         public List<Tag> Tags { get; set; } = new();

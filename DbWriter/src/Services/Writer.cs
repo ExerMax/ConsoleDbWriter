@@ -16,6 +16,8 @@ namespace DbWriter.src.Services
         }
         public int Write(IEnumerable<XOrder> orders)
         {
+            _res = 0;
+
             foreach (var order in orders)
             {
                 using (var transaction = _context.Database.BeginTransaction())

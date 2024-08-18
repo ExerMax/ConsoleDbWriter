@@ -9,63 +9,25 @@ namespace DbWriter.src.Services
     {
         public IEnumerable<XOrder> Read(string pathFile)
         {
-            XDocument xDocument;
+            XElement root = XElement.Load(pathFile);
 
-            try
+            var xorders = root.Elements("order").Select(o => new XOrder
             {
-                xDocument = XDocument.Load(pathFile);
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-            
-            var query = xDocument.Element("orders")
-                .Elements("order")
-                .Select(o => new
-                {
-                    no = o.Element("no"),
-                    regDate = o.Element("reg_date"),
-                    sum = o.Element("sum"),
-                    user = o.Element("user"),
-                    products = o.Elements("product")
-                });
-
-            List<XOrder> xorders = new List<XOrder>();
-
-            foreach (var item in query)
-            {
-                Console.WriteLine(item);
-
-                List<XProduct> products = new List<XProduct>();
-
-                foreach(var product in item.products)
-                {
-                    products.Add(new XProduct()
-                    {
-                        Quantity = Convert.ToInt32(product.Element("quantity")?.Value),
-                        Name = product.Element("name")?.Value,
-                        Price = double.Parse(product.Element("price")?.Value, CultureInfo.InvariantCulture)
-                    });
-                }
-
-                XUser user = new XUser() 
+                No = Int32.Parse(o.Element("no").Value),
+                RegDate = DateTime.Parse(o.Element("reg_date").Value),
+                Sum = Decimal.Parse(o.Element("sum").Value, CultureInfo.InvariantCulture),
+                User = new XUser 
                 { 
-                    Name = item.user.Element("fio")?.Value,
-                    Email = item.user.Element("email")?.Value
-                };
-
-                XOrder order = new XOrder()
+                    Name = o.Element("user").Element("fio").Value, 
+                    Email = o.Element("user").Element("email").Value
+                },
+                Products = o.Elements("product").Select(p => new XProduct
                 {
-                    No = Convert.ToInt32(item.no?.Value),
-                    RegDate = Convert.ToDateTime(item.regDate?.Value),
-                    Sum = double.Parse(item.sum?.Value, CultureInfo.InvariantCulture),
-                    User = user,
-                    Products = products
-                };
-
-                xorders.Add(order);
-            }
+                    Quantity = Int32.Parse(p.Element("quantity").Value),
+                    Name = p.Element("name").Value,
+                    Price = Decimal.Parse(p.Element("price").Value, CultureInfo.InvariantCulture)
+                }).ToList()
+            }).ToList();
 
             return xorders;
         }

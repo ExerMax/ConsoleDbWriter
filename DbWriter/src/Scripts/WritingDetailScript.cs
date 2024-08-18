@@ -9,22 +9,23 @@ namespace DbWriter.src.Scripts
             Console.WriteLine("Детали записи:");
             Console.WriteLine("\n\nЗаписаные заказы:\n");
 
+            Console.ForegroundColor = ConsoleColor.Green;
             foreach (var item in context.storage.orders)
             {
                 if (item.Writed)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(item);
                 }
             }
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine("\n\nНе записаные заказы:\n");
+
+            Console.ForegroundColor = ConsoleColor.Red;
             foreach (var item in context.storage.orders)
             {
                 if (!item.Writed)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(item);
                 }
             }

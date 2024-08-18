@@ -4,7 +4,7 @@
     {
         public int No { get; set; }
         public DateTime RegDate { get; set; }
-        public double Sum { get; set; }
+        public decimal Sum { get; set; }
         public XUser User { get; set; }
         public List<XProduct> Products { get; set; } = new List<XProduct>();
         public bool Writed { get; set; } = false;
