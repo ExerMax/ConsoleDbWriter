@@ -6,19 +6,20 @@ namespace DbWriter.src.Services
 {
     public class InteractionContext
     {
-        public readonly IXmlParser _xmlParser;
-        public readonly IDbWriter _dbWriter;
-        public Storage storage = new Storage();
+        public readonly IXmlParser XmlParser;
+        public readonly IDbWriter DbWriter;
+        public Storage Storage;
         public InteractionScript Script { get; set; }
         public InteractionContext(IXmlParser parser, IDbWriter writer)
         {
-            _xmlParser = parser;
-            _dbWriter = writer;
+            XmlParser = parser;
+            DbWriter = writer;
+            Storage = new Storage();
         }
         public void Request() => Script.Interact(this);
         public void Write()
         {
-            storage.SuccessfulWrited = _dbWriter.Write(storage.orders);
+            Storage.SuccessfulWrited = DbWriter.Write(Storage.Orders);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace DbWriter.src.Scripts
         public override void Interact(InteractionContext context)
         {
             Console.WriteLine("Запись данных завершена");
-            Console.WriteLine($"Заказов прочитано успешно:{context.storage.SuccessfulReaded}");
-            Console.WriteLine($"Заказов записано успешно:{context.storage.SuccessfulWrited}");
+            Console.WriteLine($"Заказов прочитано успешно:{context.Storage.SuccessfulReaded}");
+            Console.WriteLine($"Заказов записано успешно:{context.Storage.SuccessfulWrited}");
             Console.WriteLine("Для просмотра детализации чтения введите - rd");
             Console.WriteLine("Для просмотра детализации записи введите - wd");
             string str = Console.ReadLine();

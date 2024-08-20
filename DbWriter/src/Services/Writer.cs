@@ -32,6 +32,14 @@ namespace DbWriter.src.Services
                         }
                         customer = _context.Customers.FirstOrDefault(c => c.Name == order.User.Name && c.Email == order.User.Email);
 
+                        var checkOrder = _context.Orders.Where(no => no.No == order.No).FirstOrDefault();
+
+                        if (checkOrder is null)
+                        {
+                            transaction.Rollback();
+                            continue;
+                        }
+
                         _context.Orders.Add(new Order() { No = order.No, Customer = customer, Sum = order.Sum, CustomerId = customer.Id, DateTime = order.RegDate });
                         _context.SaveChanges();
                         var newOrder = _context.Orders.Where(no => no.No == order.No).FirstOrDefault();
@@ -45,12 +53,12 @@ namespace DbWriter.src.Services
                             if (dbProd is null)
                             {
                                 _productSkipped = true;
-                                continue;
+                                break;
                             }
                             if (dbProd.Quantity < prod.Quantity)
                             {
                                 _productSkipped = true;
-                                continue;
+                                break;
                             }
 
                             _context.OrderProducts.Add(new OrderProduct() { OrderId = newOrder.Id, ProductId = dbProd.Id, Quantity = prod.Quantity });
@@ -62,9 +70,12 @@ namespace DbWriter.src.Services
                         {
                             _res++;
                             order.Writed = true;
+                            transaction.Commit();
                         }
-                        
-                        transaction.Commit();
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     catch (Exception ex)
                     {

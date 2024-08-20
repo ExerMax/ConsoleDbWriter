@@ -8,12 +8,12 @@ namespace DbWriter.src.Scripts
         {
             Console.WriteLine("Идет чтение файла");
 
-            var res = context._xmlParser.Read(context.storage.FilePath);
+            var res = context.XmlParser.Read(context.Storage.FilePath);
 
             if (res != null)
             {
-                context.storage.SuccessfulReaded = res.Count();
-                context.storage.orders = res;
+                context.Storage.SuccessfulReaded = res.Count();
+                context.Storage.Orders = res;
                 context.Write();
                 context.Script = new SuccessReadScript();
             }

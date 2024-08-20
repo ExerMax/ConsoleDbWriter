@@ -7,7 +7,7 @@ namespace DbWriter.src.Scripts
         public override void Interact(InteractionContext context)
         {
             Console.WriteLine("Детали чтения:");
-            foreach (var item in context.storage.orders)
+            foreach (var item in context.Storage.Orders)
             {
                 Console.WriteLine(item);
             }

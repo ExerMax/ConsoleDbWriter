@@ -10,7 +10,7 @@ namespace DbWriter.src.Scripts
             Console.WriteLine("\n\nЗаписаные заказы:\n");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            foreach (var item in context.storage.orders)
+            foreach (var item in context.Storage.Orders)
             {
                 if (item.Writed)
                 {
@@ -22,7 +22,7 @@ namespace DbWriter.src.Scripts
             Console.WriteLine("\n\nНе записаные заказы:\n");
 
             Console.ForegroundColor = ConsoleColor.Red;
-            foreach (var item in context.storage.orders)
+            foreach (var item in context.Storage.Orders)
             {
                 if (!item.Writed)
                 {

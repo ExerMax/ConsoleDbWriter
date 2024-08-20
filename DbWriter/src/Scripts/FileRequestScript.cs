@@ -6,12 +6,12 @@ namespace DbWriter.src.Scripts
     {
         public override void Interact(InteractionContext context)
         {
-            context.storage.Refresh();
+            context.Storage.Refresh();
             Console.WriteLine("Укажите путь файла для чтения");
             string? path = Console.ReadLine();
             if(path != string.Empty)
             {
-                context.storage.FilePath = path;
+                context.Storage.FilePath = path;
                 context.Script = new ReadFileScript();
             }
             else
