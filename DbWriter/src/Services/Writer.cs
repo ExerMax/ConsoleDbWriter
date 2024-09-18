@@ -63,8 +63,9 @@ namespace DbWriter.src.Services
 
                             _context.OrderProducts.Add(new OrderProduct() { OrderId = newOrder.Id, ProductId = dbProd.Id, Quantity = prod.Quantity });
                             dbProd.Quantity -= prod.Quantity;
-                            _context.SaveChanges();
                         }
+
+                        _context.SaveChanges();
 
                         if (!_productSkipped)
                         {
